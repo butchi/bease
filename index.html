@@ -1,31 +1,41 @@
 <!doctype html>
-<!-- 02 補間（未実装） -->
+<!-- 03 補間 -->
 <html>
 <head>
 <meta charset="utf-8">
-<title>bease01</title>
+<title>bease03</title>
 </head>
 
 <body>
-<svg><polyline id="graph1" fill="none" stroke="#000" stroke-width="1"></polyline></svg>
+<svg><polyline id="graph1" fill="none" stroke="#000" stroke-width="1" transform="scale(1,-1) translate(500,-500)"></polyline></svg>
 
 <script>
+"use strict";
 function bease(arr, type) {
   return;
 }
 
-function interpolate(arr, f, x, dist) {
-  return;
+function interpolate(arr, f, x) {
+  var ret = 0;
+  var i;
+  for(i=0; i<arr.length; i++) {
+    ret += f(arr.length*x-i)*arr[i];
+  }
+  return ret;
 }
 
-/*
-function plot() {
-  pts = "50,375 150,375 150,325 250,325 250,375 350,375 350,250 450,250 450,375 550,375 550,175 650,175 650,375 750,375 750,100 850,100 850,375 950,375 950,25 1050,25 1050,375 1150,375";
+function plot(f, imin, imax, di) {
+  var pts = "";
+  //pts = "50,375 150,375 150,325 250,325 250,375 350,375 350,250 450,250 450,375 550,375 550,175 650,175 650,375 750,375 750,100 850,100 850,375 950,375 950,25 1050,25 1050,375 1150,375";
+  var i;
+  for(i=imin; i<imax; i+=di) {
+    //pts += (i*100).toFixed(3) +"," + (f(i)*500).toFixed(3) + " ";
+    pts += (i*100).toFixed(3) +"," + (interpolate([1,5,3,8], f, i)*10).toFixed(3) + " ";
+  }
   document.getElementById('graph1').setAttribute('points', pts);
 }
 
-plot();
-*/
+plot(linear, -5,5,0.05);
 
 /*
  * 配列の要素がundefinedのときに0を返す関数
@@ -38,6 +48,9 @@ function comb(arr, x) {
   }
 }
 
+/*
+ * nearest neighbor
+ */
 function nn(x) {
   if(x>-0.5 && x<0.5) {
     return 1;
