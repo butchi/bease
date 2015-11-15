@@ -1,30 +1,32 @@
 (function() {
   'use strict';
-  function Bease(option) {
-    this._arr  = option.array || [0, 1];
-    this._func = option.func  || 'linear';
-  }
-
-  Bease.prototype.getFunc = function() {
-    var arr = this._arr;
-    var func;
-    if(false) {
-    } else if(typeof this._func === 'string') {
-      func = Bease.InterpolationFunction[this._func];      
-    } else if(typeof this._func === 'function') {
-      func = this._func;
-    } else {
-      throw new Error('funcオプションには補間関数名か関数を入力してください。');
+  class Bease {
+    constructor(option) {
+      this._arr  = option.array || [0, 1];
+      this._func = option.func  || 'linear';
     }
 
-    return function(x) {
-      return interpolate(arr, func, x);
-    };
-  };
+    getFunc() {
+      var arr = this._arr;
+      var func;
+      if(false) {
+      } else if(typeof this._func === 'string') {
+        func = Bease.InterpolationFunction[this._func];      
+      } else if(typeof this._func === 'function') {
+        func = this._func;
+      } else {
+        throw new Error('funcオプションには補間関数名か関数を入力してください。');
+      }
 
-  Bease.prototype.func = function(x) {
-    return this.getFunc()(x);
-  };
+      return function(x) {
+        return interpolate(arr, func, x);
+      };
+    };
+
+    func(x) {
+      return this.getFunc()(x);
+    };
+  }
 
   function interpolate(arr, f, x) {
     var ret = 0;
