@@ -11,7 +11,7 @@
       var func;
       if(false) {
       } else if(typeof this._func === 'string') {
-        func = Bease.InterpolationFunction[this._func];      
+        func = Bease.InterpolationFunction[this._func];
       } else if(typeof this._func === 'function') {
         func = this._func;
       } else {
