@@ -22,6 +22,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         var func;
         if (false) {} else if (typeof this._func === 'string') {
           func = Bease.InterpolationFunction[this._func];
+          if (!func) {
+            throw new Error('補間関数がありません。');
+          }
         } else if (typeof this._func === 'function') {
           func = this._func;
         } else {
