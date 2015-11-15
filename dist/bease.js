@@ -1,30 +1,46 @@
+'use strict';
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 (function () {
   'use strict';
 
-  function Bease(option) {
-    this._arr = option.array || [0, 1];
-    this._func = option.func || 'linear';
-  }
+  var Bease = (function () {
+    function Bease(option) {
+      _classCallCheck(this, Bease);
 
-  Bease.prototype.getFunc = function () {
-    var arr = this._arr;
-    var func;
-    if (false) {} else if (typeof this._func === 'string') {
-      func = Bease.InterpolationFunction[this._func];
-    } else if (typeof this._func === 'function') {
-      func = this._func;
-    } else {
-      throw new Error('funcオプションには補間関数名か関数を入力してください。');
+      this._arr = option.array || [0, 1];
+      this._func = option.func || 'linear';
     }
 
-    return function (x) {
-      return interpolate(arr, func, x);
-    };
-  };
+    _createClass(Bease, [{
+      key: 'getFunc',
+      value: function getFunc() {
+        var arr = this._arr;
+        var func;
+        if (false) {} else if (typeof this._func === 'string') {
+          func = Bease.InterpolationFunction[this._func];
+        } else if (typeof this._func === 'function') {
+          func = this._func;
+        } else {
+          throw new Error('funcオプションには補間関数名か関数を入力してください。');
+        }
 
-  Bease.prototype.func = function (x) {
-    return this.getFunc()(x);
-  };
+        return function (x) {
+          return interpolate(arr, func, x);
+        };
+      }
+    }, {
+      key: 'func',
+      value: function func(x) {
+        return this.getFunc()(x);
+      }
+    }]);
+
+    return Bease;
+  })();
 
   function interpolate(arr, f, x) {
     var ret = 0;
