@@ -1,9 +1,11 @@
 <!doctype html>
-<!-- 03 補間 -->
+<!-- 04 補間修正 -->
+<!-- TODO: 端点ループなど -->
+<!-- TODO: cos補間 -->
 <html>
 <head>
 <meta charset="utf-8">
-<title>bease03</title>
+<title>bease</title>
 </head>
 
 <body>
@@ -12,15 +14,20 @@
 <script>
 "use strict";
 function bease(arr, type) {
-  return;
+  return function(x) {
+    interpolate(arr, type.func, x);
+  };
 }
 
 function interpolate(arr, f, x) {
   var ret = 0;
   var i;
   for(i=0; i<arr.length; i++) {
-    ret += f(arr.length*x-i)*arr[i];
+    ret += f((arr.length-1)*x-i)*arr[i];
   }
+  //if(x>-0.001 && x<0.001) ret = 50;
+  //if(x>0.999 && x<1.001) ret = 50;
+  //console.log(x, ret);
   return ret;
 }
 
@@ -35,7 +42,7 @@ function plot(f, imin, imax, di) {
   document.getElementById('graph1').setAttribute('points', pts);
 }
 
-plot(linear, -5,5,0.05);
+plot(nn, -5,5,0.01);
 
 /*
  * 配列の要素がundefinedのときに0を返す関数
