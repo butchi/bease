@@ -19,7 +19,7 @@ function interpolate(arr, f, x) {
 
 
 /*
- * ”z—ñ‚Ì—v‘f‚ªundefined‚Ì‚Æ‚«‚É0‚ð•Ô‚·ŠÖ”
+ * é…åˆ—ã®è¦ç´ ãŒundefinedã®ã¨ãã«0ã‚’è¿”ã™é–¢æ•°
  */
 function comb(arr, x) {
   if(typeof arr[x] === 'undefined') {
@@ -35,7 +35,7 @@ function comb(arr, x) {
 function nn(x) {
   if(x>-0.5 && x<0.5) {
     return 1;
-  } else if(x===0.5 || x===-0.5) { //”O‚Ì‚½‚ß
+  } else if(x===0.5 || x===-0.5) { //å¿µã®ãŸã‚
     return 0.5;
   } else {
     return 0;
@@ -60,7 +60,7 @@ function linear(x) {
 
 /*
  * from http://ja.wikipedia.org/wiki/%E5%86%85%E6%8C%BF
- * from uƒRƒ“ƒsƒ…[ƒ^‰æ‘œˆ—v“c‘ºGs•Ò’˜
+ * from ã€Œã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ç”»åƒå‡¦ç†ã€ç”°æ‘ç§€è¡Œç·¨è‘—
  */
 function cubic(x, a) {
   if(typeof a === 'undefined') {
@@ -81,7 +81,7 @@ function cubic(x, a) {
 function sinc(x) {
   if(x===0) {
     return 1;
-  } else if(x===~~x) { // 0ˆÈŠO‚Ì®”‚Ì‚Æ‚«
+  } else if(x===~~x) { // 0ä»¥å¤–ã®æ•´æ•°ã®ã¨ã
     return 0;
   } else {
     var x2 = x*Math.PI;
