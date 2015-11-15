@@ -21,11 +21,11 @@
       return function(x) {
         return interpolate(arr, func, x);
       };
-    };
+    }
 
     func(x) {
       return this.getFunc()(x);
-    };
+    }
   }
 
   function interpolate(arr, f, x) {
