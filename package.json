@@ -1,0 +1,27 @@
+{
+  "name": "bease",
+  "version": "0.6.0",
+  "description": "easing library",
+  "main": "src/bease.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/butchi/bease.git"
+  },
+  "keywords": [
+    "easing",
+    "interpolation",
+    "animation"
+  ],
+  "author": "IWABUCHI Yu (u)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/butchi/bease/issues"
+  },
+  "homepage": "https://github.com/butchi/bease#readme",
+  "devDependencies": {
+    "gulp-babel": "^6.1.0"
+  }
+}
