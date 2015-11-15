@@ -131,12 +131,12 @@
   }
 
   Bease.InterpolationFunction = {
-    comb: comb,
-    nn: nn,
-    linear: linear,
-    cubic: cubic,
-    sinc: sinc,
-    cosPulse: cosPulse,
+    comb,
+    nn,
+    linear,
+    cubic,
+    sinc,
+    cosPulse,
   };
 
   // export
