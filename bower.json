@@ -1,0 +1,24 @@
+{
+  "name": "bease",
+  "description": "easing library",
+  "main": "src/bease.js",
+  "authors": [
+    "IWABUCHI Yu(u)ki"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "easing",
+    "interpolation",
+    "animation"
+  ],
+  "homepage": "https://github.com/butchi/bease",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
