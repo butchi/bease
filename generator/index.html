@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>bease preset generator</title>
+</head>
+
+<body>
+<pre><code class="result"></code></pre>
+
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/jquery.easing/js/jquery.easing.js"></script>
+<script>
+var key;
+var ret = {};
+var func;
+
+function getArr(f, len) {
+  var ret = [];
+  var val;
+  var i;
+
+  if(len == null) {
+    len = 11;
+  }
+
+  for(i = 0; i < len; i++) {
+    val = f(i / (len - 1), i / (len - 1), 0, 1, 1).toFixed(3);
+    ret.push(val);
+  }
+
+  return ret;
+}
+
+for(key in jQuery.easing) {
+  func = jQuery.easing[key];
+  if(typeof func === 'function') {
+    ret[key] = getArr(func, 21);
+  }
+}
+
+$('.result').html(JSON.stringify(ret));
+
+// $('.result').html(JSON.stringify(ret, null, 2)); // pretty
+
+</script>
+</body>
+</html>

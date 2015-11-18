@@ -5,6 +5,16 @@
 <title>bease</title>
 
 <style>
+.ball {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  left: 10px;
+  top: 10px;
+  background-color: #000;
+}
+
 svg {
   width: 1000px;
   height: 500px;
@@ -13,8 +23,11 @@ svg {
 </head>
 
 <body>
+<div class="ball"></div>
+
 <svg><polyline id="graph1" fill="none" stroke="#000" stroke-width="1" transform="scale(1,-1) translate(500,-500)"></polyline></svg>
 
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="dist/bease.js"></script>
 <script>
 function plot(imin, imax, di) {
@@ -24,16 +37,25 @@ function plot(imin, imax, di) {
   var i;
   for(i = imin; i < imax; i += di) {
     //pts += (i*100).toFixed(3) +"," + (f(i)*500).toFixed(3) + " ";
-    pts += (i * 100).toFixed(3) + "," + (func(i) * 10).toFixed(3) + " ";
+    pts += (i * 100).toFixed(3) + "," + (func(i) * 100).toFixed(3) + " ";
   }
   document.getElementById('graph1').setAttribute('points', pts);
 }
 
 var bease = new Bease({
   func:  'linear',
-  array: [1,5,3,8],
+  array: Bease.easing.easeOutBounce,
 });
 plot(-5 ,5, 0.01);
+
+bease.register('test');
+
+$('.ball').animate({
+  top: 100,
+}, {
+  duration: 1000,
+  easing: 'test',
+});
 </script>
 </body>
 </html>
