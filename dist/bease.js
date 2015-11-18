@@ -37,6 +37,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       value: function func(x) {
         return this.getFunc()(x);
       }
+    }, {
+      key: 'register',
+      value: function register(name) {
+        if (window.jQuery) {
+          if (name == null) {
+            var date = new Date();
+            var uid = date.valueOf().toString();
+            name = uid;
+          }
+          jQuery.easing[name] = this.getFunc();
+          return name;
+        } else {
+          throw new Error('この関数はjQueryを有効にした上で呼び出してください。');
+        }
+      }
     }]);
 
     return Bease;

@@ -26,6 +26,20 @@
     func(x) {
       return this.getFunc()(x);
     }
+
+    register(name) {
+      if(window.jQuery) {
+        if(name == null) {
+          let date = new Date();
+          let uid = date.valueOf().toString();
+          name = uid;
+        }
+        jQuery.easing[name] = this.getFunc();
+        return name;
+      } else {
+        throw new Error('この関数はjQueryを有効にした上で呼び出してください。');
+      }
+    }
   }
 
   function interpolate(arr, f, x) {
