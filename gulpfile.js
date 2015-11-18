@@ -2,6 +2,16 @@ var gulp = require("gulp");
 var babel = require("gulp-babel");
 var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
+var webserver = require('gulp-webserver');
+
+gulp.task('serve', function() {
+  gulp.src('.')
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: false,
+      open: true,
+    }));
+});
 
 gulp.task('babel', function () {
   return gulp.src('src/bease.js')
