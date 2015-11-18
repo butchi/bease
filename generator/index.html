@@ -35,11 +35,13 @@ function getArr(f, len) {
 for(key in jQuery.easing) {
   func = jQuery.easing[key];
   if(typeof func === 'function') {
-    ret[key] = getArr(func);
+    ret[key] = getArr(func, 21);
   }
 }
-console.log(ret);
-$('.result').html(JSON.stringify(ret, null, 2));
+
+$('.result').html(JSON.stringify(ret));
+
+// $('.result').html(JSON.stringify(ret, null, 2)); // pretty
 
 </script>
 </body>
