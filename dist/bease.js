@@ -48,9 +48,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     for (i = 0; i < arr.length; i++) {
       ret += f((arr.length - 1) * x - i) * arr[i];
     }
-    //if(x>-0.001 && x<0.001) ret = 50;
-    //if(x>0.999 && x<1.001) ret = 50;
-    //console.log(x, ret);
     return ret;
   }
 
