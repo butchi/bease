@@ -25,6 +25,7 @@
     "babel-preset-es2015": "^6.1.18",
     "gulp-babel": "^6.1.0",
     "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^1.0.1"
+    "gulp-plumber": "^1.0.1",
+    "gulp-webserver": "^0.9.1"
   }
 }
