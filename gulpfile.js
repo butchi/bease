@@ -11,6 +11,16 @@ gulp.task('serve', function() {
       directoryListing: false,
       open: true,
     }));
+  gulp.watch('assets/js-src/main.js', ['babel-home']);
+});
+
+gulp.task('babel-home', function () {
+  return gulp.src('assets/js-src/main.js')
+    .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>") //<-
+    }))
+    .pipe(babel())
+    .pipe(gulp.dest('assets/js'));
 });
 
 gulp.task('babel', function () {
