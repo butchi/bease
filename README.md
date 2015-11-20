@@ -7,6 +7,22 @@ jQueryアニメーションが簡単に行える他、生成した関数を自�
 
 jquery.easingに登録されている[標準的なイージング](http://easings.net/ja)にも対応しています。
 
+## インストール
+```
+bower install bease
+```
+
+もしくは[こちら](http://butchi.github.io/bease/dist/bease.js)からダウンロード
+
+```html
+<body>
+...
+
+<script src="jquery.js"></script> <!-- jQueryアニメーション使用のときのみ必要 -->
+<script src="bease.js"></script>
+</body>
+```
+
 ## 使い方
 ### jQueryアニメーション
 ```js
