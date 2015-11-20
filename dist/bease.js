@@ -11,28 +11,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     function Bease(option) {
       _classCallCheck(this, Bease);
 
-      this._arr = option.array || [0, 1];
-      this._func = option.func || 'linear';
+      this.array = option.array || [0, 1];
+      this.fill = option.fill || 'linear';
     }
 
     _createClass(Bease, [{
       key: 'getFunc',
       value: function getFunc() {
-        var arr = this._arr;
-        var func;
-        if (false) {} else if (typeof this._func === 'string') {
-          func = Bease.InterpolationFunction[this._func];
-          if (!func) {
+        var arr = this.array;
+        var fill;
+        if (false) {} else if (typeof this.fill === 'string') {
+          fill = Bease.InterpolationFunction[this.fill];
+          if (!fill) {
             throw new Error('補間関数がありません。');
           }
-        } else if (typeof this._func === 'function') {
-          func = this._func;
+        } else if (typeof this.fill === 'function') {
+          fill = this.fill;
         } else {
-          throw new Error('funcオプションには補間関数名か関数を入力してください。');
+          throw new Error('fillオプションには補間関数名か関数を入力してください。');
         }
 
         return function (x) {
-          return interpolate(arr, func, x);
+          return interpolate(arr, fill, x);
         };
       }
     }, {
