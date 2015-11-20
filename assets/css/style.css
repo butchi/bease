@@ -1,14 +1,38 @@
-.ball {
+.stage {
+  float: left;
+  position: relative;
+}
+
+.stage .canvas {
+  width: 200px;
+  height: 200px;
+}
+
+.area-anim {
+  float: left;
+  position: relative;
+  margin-left: 20px;
+}
+
+.anim-elm {
   position: absolute;
   width: 50px;
   height: 50px;
-  border-radius: 50px;
-  left: 10px;
-  top: 10px;
-  background-color: #000;
+  background-color: black;
 }
 
-svg {
-  width: 1000px;
-  height: 500px;
+.anim-elm--slide {
+  left: 0;
+  top: 50px;
+}
+
+.anim-elm--fade {
+  left: 200px;
+  top: 120px;
+
+  opacity: 0;
+}
+
+.block-output {
+  clear: both;
 }

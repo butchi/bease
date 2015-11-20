@@ -66,18 +66,45 @@ class CubicBezier {
 
 
 
-    var outputPtArr = this.convertToArr(a, b, c, d, ARR_LEN, SCAN_LEN);
+    outputPtArr = this.convertToArr(a, b, c, d, ARR_LEN, SCAN_LEN);
+    bease.array = outputPtArr;
+
     var previewPts = [];
+    var func = bease.getFunc();
     // console.log(outputPtArr);
-    outputPtArr.forEach((val, i) => {
+    _.range(0, 1, 1/200).forEach((x) => {
       // console.log(i/(outputPtArr.length - 1), val);
-      previewPts.push(new Point(i / (ARR_LEN - 1), val));
+      previewPts.push(new Point(x, func(x)));
     });
 
     this.previewPath && this.previewPath.remove();
     this.previewPolyline = new Polyline(previewPts);
     // console.log(this.previewPolyline.stringify(2));
     this.previewPath = paper.path(this.previewPolyline.stringify(10)).scale(200, -200, 0, 1);
+
+    $('.output-arr').text(`[${outputPtArr}]`);
+
+    var compile = _.template(
+`var bease = new Bease({
+  fill:  'linear',
+  array: [<%= arr %>],
+});
+
+bease.register('myease');
+
+var $elm = $('.element-will-be-animated');
+$elm.animate({
+  left: 200,
+}, {
+  duration: 1000,
+  easing:   'myease',
+});
+`
+    );
+
+    $('.sample-code').text(compile({
+      arr: outputPtArr,
+    }));
   }
 
   convertToArr(a, b, c, d, len = 11, scanLen = 100) {
@@ -108,30 +135,27 @@ class CubicBezier {
     var idxArr = _.range(len - 1);
     var ret = _.map(idxArr, (idx) => {
       var nearIdx = nearestIndex(xArr, idx / (len - 1));
-      return yArr[nearIdx];
+      return yArr[nearIdx].toFixed(3);
     });
 
-    ret.push(cb(1).y);
+    ret.push(cb(1).y.toFixed(3));
     // console.log(ret);
 
     return ret;
   }
 }
 
+var Event = {
+  START_ANIM: 'startanim',
+}
 var ARR_LEN  = 11;
 var SCAN_LEN = 100;
 var bezier;
-// var defaultParam = {
-//   a: 0.17,
-//   b: 0.67,
-//   c: 0.83,
-//   d: 0.67,
-// };
 var defaultParam = {
-  a: 0.1,
-  b: 0.1,
-  c: 0.9,
-  d: 0.9,
+  a: 0.17,
+  b: 0.67,
+  c: 0.83,
+  d: 0.67,
 };
 
 var ptArr = [
@@ -141,9 +165,15 @@ var ptArr = [
   new Point(1, 1)
 ];
 var circleArr = [];
+var outputPtArr;
 
 var line1;
 var line2;
+
+var bease = new Bease({
+  fill:  'linear',
+  array: null,
+});
 
 Raphael.fn.line = function (pt1, pt2) {
     return this.path(Raphael.format("M{0},{1} {2},{3}", pt1.x, pt1.y, pt2.x, pt2.y)).attr('stroke-width', 1).scale(200, -200, 0, 1);
@@ -200,16 +230,39 @@ function stopDrag(){
   delete(this._cy);
 }
 
-var bease = new Bease({
-  func:  'linear',
-  array: Bease.easing.easeOutBounce,
+$('.btn-preview').on('click', function() {
+  $('.anim-elm').trigger(Event.START_ANIM);
 });
 
-bease.register('test');
+$('.anim-elm').on(Event.START_ANIM, function() {
+  var $this = $(this);
+  clearTimeout($this.data('timerId'));
+  bease.register('slide');
 
-$('.ball').animate({
-  top: 100,
-}, {
-  duration: 1000,
-  easing: 'test',
+  var dist = {};
+
+  if(false) {
+  } else if($this.is('.anim-elm--slide')) {
+    dist = {
+      left: 200,
+    };
+  } else if($this.is('.anim-elm--fade')) {
+    dist = {
+      opacity: 1,
+    };
+  }
+
+  $this
+    .stop(true, true)
+    .attr('style', '')
+    .animate(dist, {
+      duration: 1000,
+      easing:   'slide',
+      complete: function() {
+        var timerId = setTimeout(() => {
+          $this.attr('style', '');
+        }, 2000);
+        $this.data('timerId', timerId);
+      }
+  });
 });
