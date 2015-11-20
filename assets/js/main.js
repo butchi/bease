@@ -84,15 +84,15 @@ var CubicBezier = (function () {
       // console.log(polyline.stringify(2));
 
       this.path && this.path.remove();
-      this.path = paper.path(cbPolyline.stringify(5)).attr('stroke-width', 2);
+      this.path = paper.path(cbPolyline.stringify(5)).attr('stroke-width', 5).attr('stroke', '#ccc');
       this.path.scale(200, -200, 0, 1);
 
       var outputPtArr = this.convertToArr(a, b, c, d, ARR_LEN, SCAN_LEN);
       var previewPts = [];
-      console.log(outputPtArr);
+      // console.log(outputPtArr);
       outputPtArr.forEach(function (val, i) {
-        console.log(i / (outputPtArr.length - 1), val);
-        previewPts.push(new Point(i / ARR_LEN, val));
+        // console.log(i/(outputPtArr.length - 1), val);
+        previewPts.push(new Point(i / (ARR_LEN - 1), val));
       });
 
       this.previewPath && this.previewPath.remove();
@@ -106,36 +106,38 @@ var CubicBezier = (function () {
       var len = arguments.length <= 4 || arguments[4] === undefined ? 11 : arguments[4];
       var scanLen = arguments.length <= 5 || arguments[5] === undefined ? 100 : arguments[5];
 
+      // from [jQuery - \[javascript\]配列から最も近い値を探す - Qiita](http://qiita.com/shuuuuun/items/f0031d710ca50b21177a)
+      function nearestIndex(arr, x) {
+        var diff = [];
+        var index = 0;
+
+        arr.forEach(function (val, i) {
+          diff[i] = Math.abs(x - val);
+          index = diff[index] < diff[i] ? index : i;
+        });
+
+        return index;
+      }
+
       var cb = this.cubicBezierFunction(a, b, c, d);
 
-      var arr = [];
-      var tempArr = [];
-      var i;
-      for (i = 0; i < scanLen; i++) {
-        tempArr.push(cb(i / scanLen));
-      }
-      var group = _.groupBy(tempArr, function (pt) {
-        return Math.floor((len - 1) * pt.x);
-      });
-      // console.log(group);
+      var xArr = [];
+      var yArr = [];
+      var tArr = _.range(0, 1, 1 / scanLen);
 
-      var ret = [];
-
-      _.forEach(group, function (arr, i) {
-        function sum(ptArr) {
-          var result = _.reduce(ptArr, function (memo, pt) {
-            return memo + pt.y;
-          }, 0);
-
-          return result;
-        }
-
-        var sumVal = sum(arr);
-        ret[i] = sumVal / arr.length;
+      tArr.forEach(function (t) {
+        xArr.push(cb(t).x);
+        yArr.push(cb(t).y);
       });
 
-      ret[0] = cb(0).y;
+      var idxArr = _.range(len - 1);
+      var ret = _.map(idxArr, function (idx) {
+        var nearIdx = nearestIndex(xArr, idx / (len - 1));
+        return yArr[nearIdx];
+      });
+
       ret.push(cb(1).y);
+      // console.log(ret);
 
       return ret;
     }
@@ -144,15 +146,15 @@ var CubicBezier = (function () {
   return CubicBezier;
 })();
 
-var ARR_LEN = 6;
-var SCAN_LEN = 10;
+var ARR_LEN = 11;
+var SCAN_LEN = 100;
 var bezier;
 // var defaultParam = {
 //   a: 0.17,
 //   b: 0.67,
 //   c: 0.83,
 //   d: 0.67,
-// }
+// };
 var defaultParam = {
   a: 0.1,
   b: 0.1,
