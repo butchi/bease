@@ -1,15 +1,17 @@
 {
   "name": "bease",
+  "version": "1.0.0",
   "description": "easing library",
-  "main": "src/bease.js",
+  "main": "dist/bease.js",
   "authors": [
-    "IWABUCHI Yu(u)ki"
+    "IWABUCHI Yu(u)ki <k38647@gmail.com>"
   ],
   "license": "MIT",
   "keywords": [
     "easing",
     "interpolation",
-    "animation"
+    "animation",
+    "jQuery"
   ],
   "homepage": "https://github.com/butchi/bease",
   "moduleType": [],
