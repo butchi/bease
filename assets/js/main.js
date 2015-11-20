@@ -243,7 +243,7 @@ $('.btn-preview').on('click', function () {
 $('.anim-elm').on(Event.START_ANIM, function () {
   var $this = $(this);
   clearTimeout($this.data('timerId'));
-  bease.register('slide');
+  bease.register('myease');
 
   var dist = {};
 
@@ -259,7 +259,7 @@ $('.anim-elm').on(Event.START_ANIM, function () {
 
   $this.stop(true, true).attr('style', '').animate(dist, {
     duration: 1000,
-    easing: 'slide',
+    easing: 'myease',
     complete: function complete() {
       var timerId = setTimeout(function () {
         $this.attr('style', '');
