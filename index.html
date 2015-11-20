@@ -15,29 +15,50 @@
 </head>
 
 <body>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.5&appId=903742642995033";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
 
-<div class="stage">
-  <svg class="canvas"></svg>
-</div>
-
-<div class="area-anim">
-  <div class="controller">
-    <button class="btn-preview">プレビュー</button>
+<div class="wrapper">
+  <div class="stage">
+    <svg class="canvas"></svg>
   </div>
-  <div class="anim-elm anim-elm--slide element-will-be-animated"></div>
-  <div class="anim-elm anim-elm--fade element-will-be-animated"></div>
-</div>
 
-<div class="block-output">
-  <section>
-    <h2>出力配列:</h2>
-    <pre><code class="output-arr"></code></pre>
-  </section>
+  <div class="area-anim">
+    <div class="controller">
+      <button class="btn-preview">プレビュー</button>
+    </div>
+    <div class="anim-elm anim-elm--slide element-will-be-animated"></div>
+    <div class="anim-elm anim-elm--fade element-will-be-animated"></div>
+  </div>
 
-  <section>
-    <h2>サンプルコード:</h2>
-    <pre><code class="sample-code"></code></pre>
-  </section>
+  <div class="block-output">
+    <section>
+      <h2>出力配列:</h2>
+      <pre><code class="output-arr"></code></pre>
+    </section>
+
+    <section>
+      <h2>サンプルコード:</h2>
+      <pre><code class="sample-code"></code></pre>
+    </section>
+  </div>
+
+  <ul class="list-share">
+    <li class="item item--facebook">
+      <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    </li>    
+    <li class="item item--twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </li>
+  </ul>
+
 </div>
 
 <script src="bower_components/raphael/raphael.js"></script>
