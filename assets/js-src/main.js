@@ -47,6 +47,8 @@ class CubicBezier {
   }
 
   render(a, b, c, d) {
+    var paper = this.paper;
+
     var cb = this.cubicBezierFunction(a, b, c, d);
 
     var cbPts = [];
@@ -55,21 +57,77 @@ class CubicBezier {
     for(i = 0; i < len; i++) {
       cbPts.push(cb(i / len));
     }
-    var polyline = new Polyline(cbPts);
+    var cbPolyline = new Polyline(cbPts);
     // console.log(polyline.stringify(2));
 
     this.path && this.path.remove();
-    this.path = this.paper.path(polyline.stringify(5)).attr('stroke-width', 2);
+    this.path = paper.path(cbPolyline.stringify(5)).attr('stroke-width', 2);
     this.path.scale(200, -200, 0, 1);
+
+    var outputPtArr = this.convertToArr(a, b, c, d, ARR_LEN, SCAN_LEN);
+    var previewPts = [];
+    console.log(outputPtArr);
+    outputPtArr.forEach((val, i) => {
+      console.log(i/(outputPtArr.length - 1), val);
+      previewPts.push(new Point(i / ARR_LEN, val));
+    });
+
+    this.previewPath && this.previewPath.remove();
+    this.previewPolyline = new Polyline(previewPts);
+    // console.log(this.previewPolyline.stringify(2));
+    this.previewPath = paper.path(this.previewPolyline.stringify(10)).scale(200, -200, 0, 1);
+  }
+
+  convertToArr(a, b, c, d, len = 11, scanLen = 100) {
+    var cb = this.cubicBezierFunction(a, b, c, d);
+
+    var arr = [];
+    var tempArr = [];
+    var i;
+    for(i = 0; i < scanLen; i++) {
+      tempArr.push(cb(i / scanLen));
+    }
+    var group = _.groupBy(tempArr, (pt) => {
+      return Math.floor((len - 1) * pt.x);
+    });
+    // console.log(group);
+
+    var ret = [];
+
+    _.forEach(group, (arr, i) => {
+      function sum(ptArr) {
+        var result = _.reduce(ptArr, (memo, pt) => {
+          return memo +  pt.y;
+        }, 0);
+
+        return result;
+      }
+
+      var sumVal = sum(arr);
+      ret[i] = sumVal / arr.length;
+    });
+
+    ret[0] = cb(0).y;
+    ret.push(cb(1).y);
+
+    return ret;
   }
 }
 
+var ARR_LEN  = 6;
+var SCAN_LEN = 10;
 var bezier;
+// var defaultParam = {
+//   a: 0.17,
+//   b: 0.67,
+//   c: 0.83,
+//   d: 0.67,
+// }
 var defaultParam = {
-  a: 0.17,
-  b: 0.67,
-  c: 0.83,
-  d: 0.67,
+  a: 0.1,
+  b: 0.1,
+  c: 0.9,
+  d: 0.9,
 }
 
 var ptArr = [
@@ -99,7 +157,7 @@ Raphael(function(){
       .attr({fill:"red",stroke:"none"});
     ptElm.scale(200, -200, 0, 1)
     circleArr.push(ptElm);
-  })
+  });
 
   line1 = paper.line(new Point(0, 0), new Point(defaultParam.a, defaultParam.b));
   line2 = paper.line(new Point(defaultParam.c, defaultParam.d), new Point(1, 1));
