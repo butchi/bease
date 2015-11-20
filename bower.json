@@ -18,13 +18,17 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "generator",
+    "assets",
+    "index.html",
+    "ogp.png",
+    "favicon.ico"
   ],
   "dependencies": {},
   "devDependencies": {
     "jquery": "1.11.3",
     "jquery.easing": "~1.3.1",
-    "EaselJS": "easeljs#~0.8.1",
     "raphael": "~2.1.4",
     "lodash": "~3.10.1"
   }
