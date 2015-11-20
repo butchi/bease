@@ -5,15 +5,22 @@ Raphael(function(){
   var $canvas = $('.canvas');
   var paper = Raphael($canvas.get(0), 200, 200);
 
+  var defaultParam = {
+    a: 0.17,
+    b: 0.67,
+    c: 0.83,
+    d: 0.67,
+  }
+
   var ptArr = [
-    new Point(0,   0  ),
-    new Point(0.2, 0.5),
-    new Point(0.8, 0.2),
-    new Point(1,   1  )
+    new Point(0, 0),
+    new Point(defaultParam.a, defaultParam.b),
+    new Point(defaultParam.c, defaultParam.d),
+    new Point(1, 1)
   ];
 
   bezier = new CubicBezier(paper);
-  bezier.render(0.2, 0.5, 0.8, 0.2);
+  bezier.render(defaultParam.a, defaultParam.b, defaultParam.c, defaultParam.d);
 
   ptArr.forEach((elm) => {
     var ptElm = paper.circle(elm.x, elm.y, 0.02)
