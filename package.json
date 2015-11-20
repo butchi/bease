@@ -1,6 +1,6 @@
 {
   "name": "bease",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "easing library",
   "main": "src/bease.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "interpolation",
     "animation"
   ],
-  "author": "IWABUCHI Yu (u)",
+  "author": "IWABUCHI Yu(u)ki",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/butchi/bease/issues"
