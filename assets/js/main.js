@@ -27,14 +27,14 @@ var Point = (function () {
   return Point;
 })();
 
-var Curve = (function () {
-  function Curve(pts) {
-    _classCallCheck(this, Curve);
+var Polyline = (function () {
+  function Polyline(pts) {
+    _classCallCheck(this, Polyline);
 
     this.pts = pts;
   }
 
-  _createClass(Curve, [{
+  _createClass(Polyline, [{
     key: 'stringify',
     value: function stringify(frac) {
       var ret = '';
@@ -50,7 +50,7 @@ var Curve = (function () {
     }
   }]);
 
-  return Curve;
+  return Polyline;
 })();
 
 var CubicBezier = (function () {
@@ -78,11 +78,11 @@ var CubicBezier = (function () {
       for (i = 0; i < len; i++) {
         cbPts.push(cb(i / len));
       }
-      var curve = new Curve(cbPts);
-      // console.log(curve.stringify(2));
+      var polyline = new Polyline(cbPts);
+      // console.log(polyline.stringify(2));
 
       this.path && this.path.remove();
-      this.path = this.paper.path(curve.stringify(5)).attr('stroke-width', 2);
+      this.path = this.paper.path(polyline.stringify(5)).attr('stroke-width', 2);
       this.path.scale(200, -200, 0, 1);
     }
   }]);
